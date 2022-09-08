@@ -1,0 +1,12 @@
+.bolded{
+    font-weight: bold;
+}
+
+.flex-two{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+}
+
+
+

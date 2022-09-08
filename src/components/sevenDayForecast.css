@@ -1,0 +1,32 @@
+.card {
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.243);
+   
+   text-align: center;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    width:90%;
+    
+  }
+
+  .slick-arrow{
+  
+    
+    z-index:1
+  
+  }
+ 
+  
+  .slick-next{
+    right: -5px;
+  }
+  .slick-next,.slick-prev{
+    color: black;
+    background:black;
+    border-top: 1px solid black;
+   border-radius: 50px;
+  }
+
+
+  .slick-prev{
+    left: -5px;
+  }

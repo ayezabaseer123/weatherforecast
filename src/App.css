@@ -1,0 +1,58 @@
+.App {
+  text-align: center;
+}
+
+.heading {
+  text-align: center;
+}
+
+.app {
+  border: 2px solid black;
+  width: 99%;
+  margin: auto;
+  padding: 5px
+}
+
+.flexbox{
+  display: flex;
+  flex-direction: row;
+}
+.slick-slide img{
+  all: initial;
+}
+.currentForecast{
+  margin-top:5px;
+  border: 1px solid black;
+  padding: 5px 20px 5px 20px;
+  
+
+}
+.covert{
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height:50%
+}
+
+.main{
+  margin-left: 5px;
+  margin-top:5px;
+  border: 1px solid black;
+  padding: 5px 20px 5px 20px;
+  height: 50%
+}
+.flexbox-column{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.convertor{
+ 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  
+}
