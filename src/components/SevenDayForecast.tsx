@@ -42,7 +42,7 @@ export const SevenDayForecast = ({ dailyForecast }: dailyForecast) => {
                   alt="img"
                   src={`${URL.IMG_URL}/${weather?.[0]?.icon}.png`}
                 />
-                <p style={{ fontWeight: "bold" }}>
+                <p className="bold-para">
                   {weather?.[0]?.description}
                 </p>
 

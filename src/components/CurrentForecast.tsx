@@ -15,7 +15,7 @@ export const CurrentForecast = ({ weatherInfo }: CurrentForecastProps) => {
       <div>
         <h5>Today Temperature for {name}</h5>
         <p>Current temperature: {temp + " C"} </p>
-        <p>Weather description: {weather?.[0].description}</p>
+        <p>Weather description: {weather?.[0]?.description}</p>
         <p>Highest temperature: {temp_max + " C"} </p>
         <p>Lowest temperature: {temp_min + " C"} </p>
       </div>
