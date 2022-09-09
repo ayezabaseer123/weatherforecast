@@ -5,8 +5,8 @@ import { Searchbar } from "./components/Searchbar";
 import { Button } from "./components/Button";
 import { URL } from "./constants";
 import { CurrentForecast } from "./components/CurrentForecast";
-import { Celcius } from "./components/Celcius";
-import { Fahrenheit } from "./components/Fahrenheit";
+import { TempConvertor } from "./components/TempConvertor";
+
 import { SevenDayForecast } from "./components/SevenDayForecast";
 import "./App.css";
 
@@ -20,10 +20,9 @@ function App() {
   const getWeeklyForecast = (lon: number, lat: number) => {
     axios({
       method: "get",
-      url: `${URL.WEATHER_API_URL}/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&&APPID=${process.env.REACT_APP_API_KEY}`,
+      url: `${URL.WEATHER_API_URL}/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=hourly,minutely&&APPID=${process.env.REACT_APP_API_KEY}`,
     })
       .then(function (response) {
-        console.log(response.data.daily);
         setDailyForecast(response.data.daily);
       })
       .catch(function (err) {
@@ -34,22 +33,21 @@ function App() {
     let fahrenheit = parseFloat((celcius * (9 / 5) + 32).toFixed(2));
 
     setFahrenheit(fahrenheit);
-    console.log(fahrenheit);
+    
   };
 
   const convertFahrenheit = () => {
     let celcius = parseFloat(((5 / 9) * (fahrenheit - 32)).toFixed(2));
     setCelcius(celcius);
-    console.log(celcius);
+   
   };
   const handleClick = () => {
     axios({
       method: "get",
-      url: `${URL.WEATHER_API_URL}/weather?q=${name}&APPID=${process.env.REACT_APP_API_KEY}`,
+      url: `${URL.WEATHER_API_URL}/weather?q=${name}&units=metric&APPID=${process.env.REACT_APP_API_KEY}`,
     })
       .then(function (response) {
-        console.log(name);
-        console.log(response.data);
+       
         let lon = response.data.coord.lon;
         let lat = response.data.coord.lat;
 
@@ -67,7 +65,7 @@ function App() {
         <Searchbar
           value={name}
           handleChange={(event) => setName(event.target.value)}
-          placeholder="Search by name"
+          placeholder="Search by city name"
         />
         <Button handleClick={() => handleClick()} />
       </div>
@@ -91,21 +89,25 @@ function App() {
             <div className="covert">
               <div className="convertor">
                 <div>
-                  <Celcius
+                  <TempConvertor
                     value={celcius}
                     handleChange={(event) =>
                       setCelcius(parseInt(event.target.value))
                     }
+                    placeholder="Celius"
                     blurEvent={() => convertCelcius()}
+                   
                   />
                 </div>
                 <div>
-                  <Fahrenheit
+                  <TempConvertor
                     value={fahrenheit}
+                    placeholder="Fahrenheit"
                     handleChange={(event) =>
                       setFahrenheit(parseFloat(event.target.value))
                     }
                     blurEvent={() => convertFahrenheit()}
+                    
                   />
                 </div>
               </div>

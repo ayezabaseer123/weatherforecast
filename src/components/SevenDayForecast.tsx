@@ -4,12 +4,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import "./sevenDayForecast.css";
-
+import { URL } from "../constants";
 type dailyForecast = {
   dailyForecast: any;
 };
 
-export const SevenDayForecast = (props: dailyForecast) => {
+export const SevenDayForecast = ({ dailyForecast }: dailyForecast) => {
   const date = new Date();
   var settings = {
     infinite: true,
@@ -18,29 +18,40 @@ export const SevenDayForecast = (props: dailyForecast) => {
     slidesToScroll: 1,
   };
 
+  const {} = dailyForecast;
+
   return (
     <>
       <h5>Weekly forecast </h5>
       <Slider {...settings}>
-        {props?.dailyForecast?.[0]
-          ? props?.dailyForecast?.map((element: any, index: number) => (
-              <div className="card" key={element?.dt}>
+        {dailyForecast?.[0] &&
+          dailyForecast?.map(
+            (
+              {
+                dt,
+                weather = [{}],
+                temp: { day = 0, min = 0, max = 0 } = {},
+              }: any,
+              index: number
+            ) => (
+              <div className="card" key={dt}>
                 <h3>{date.getDate() + index}th</h3>
                 <img
                   height="200"
                   width="200"
                   alt="img"
-                  src={`http://openweathermap.org/img/w/${element?.weather?.[0]?.icon}.png`}
+                  src={`${URL.IMG_URL}/${weather?.[0]?.icon}.png`}
                 />
-                <p style={{fontWeight: 'bold'}}>{element?.weather?.[0]?.description} </p>
+                <p style={{ fontWeight: "bold" }}>
+                  {weather?.[0]?.description}
+                </p>
 
-               
-                <p>Temperature {(element?.temp?.day - 273.15).toFixed(2) + " C"}</p>
-                <p>Low {(element?.temp?.min - 273.15).toFixed(2) + " C"} </p>
-                <p>High {(element?.temp?.max - 273.15).toFixed(2) + " C"} </p>
+                <p>Temperature {day + " C"}</p>
+                <p>Low {min + " C"} </p>
+                <p>High {max + " C"} </p>
               </div>
-            ))
-          : ""}
+            )
+          )}
       </Slider>
     </>
   );

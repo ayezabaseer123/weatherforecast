@@ -6,10 +6,10 @@ type ButtonProps={
 }
 
 
-export const Button=(props:ButtonProps) =>{
+export const Button=({handleClick}:ButtonProps) =>{
     return(
        
-            <button className="button button2" onClick={()=>props.handleClick()}>Submit</button>
+            <button className="button button2" onClick={()=>handleClick()}>Submit</button>
       
     )
 }
