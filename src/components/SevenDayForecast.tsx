@@ -6,25 +6,25 @@ import "slick-carousel/slick/slick-theme.css";
 import "./sevenDayForecast.css";
 import { URL } from "../constants";
 type dailyForecast = {
-  dailyForecast: any;
+  dailyForecast: {}[]
 };
 
 export const SevenDayForecast = ({ dailyForecast }: dailyForecast) => {
   const date = new Date();
-  var settings = {
+  const settings = {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
   };
 
-  const {} = dailyForecast;
+ 
 
   return (
     <>
       <h5>Weekly forecast </h5>
       <Slider {...settings}>
-        {dailyForecast?.[0] &&
+        {dailyForecast?.[1] &&
           dailyForecast?.map(
             (
               {

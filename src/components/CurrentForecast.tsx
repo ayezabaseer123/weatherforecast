@@ -1,7 +1,8 @@
 import "./CurrentForecast.css";
 import { URL } from "../constants";
+
 type CurrentForecastProps = {
-  weatherInfo: any;
+  weatherInfo: Record<string, any>;
 };
 
 export const CurrentForecast = ({ weatherInfo }: CurrentForecastProps) => {

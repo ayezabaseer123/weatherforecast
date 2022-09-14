@@ -6,22 +6,20 @@ import { Button } from "./components/Button";
 import { URL } from "./constants";
 import { CurrentForecast } from "./components/CurrentForecast";
 import { TempConvertor } from "./components/TempConvertor";
+import { getWeather, getWeekly } from "./Services";
 
 import { SevenDayForecast } from "./components/SevenDayForecast";
 import "./App.css";
 
 function App() {
   const [name, setName] = useState("");
-  const [weatherDetails, setWeatherDetails] = useState<any>({});
+  const [weatherDetails, setWeatherDetails] = useState({});
   const [celcius, setCelcius] = useState(0);
   const [fahrenheit, setFahrenheit] = useState(32);
-  const [dailyForecast, setDailyForecast] = useState<any>({});
+  const [dailyForecast, setDailyForecast] = useState([{}]);
 
   const getWeeklyForecast = (lon: number, lat: number) => {
-    axios({
-      method: "get",
-      url: `${URL.WEATHER_API_URL}/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=hourly,minutely&&APPID=${process.env.REACT_APP_API_KEY}`,
-    })
+    getWeekly(lat, lon)
       .then(function (response) {
         setDailyForecast(response.data.daily);
       })
@@ -33,24 +31,18 @@ function App() {
     let fahrenheit = parseFloat((celcius * (9 / 5) + 32).toFixed(2));
 
     setFahrenheit(fahrenheit);
-    
   };
 
   const convertFahrenheit = () => {
     let celcius = parseFloat(((5 / 9) * (fahrenheit - 32)).toFixed(2));
     setCelcius(celcius);
-   
   };
   const handleClick = () => {
-    axios({
-      method: "get",
-      url: `${URL.WEATHER_API_URL}/weather?q=${name}&units=metric&APPID=${process.env.REACT_APP_API_KEY}`,
-    })
+    getWeather(name)
       .then(function (response) {
-       
         let lon = response.data.coord.lon;
         let lat = response.data.coord.lat;
-
+        console.log(response.data);
         setWeatherDetails(response.data);
         getWeeklyForecast(lon, lat);
       })
@@ -67,7 +59,7 @@ function App() {
           handleChange={(event) => setName(event.target.value)}
           placeholder="Search by city name"
         />
-        <Button handleClick={() => handleClick()} />
+        <Button handleClick={handleClick} />
       </div>
       <div className="flexbox">
         <div className="flexbox-column">
@@ -79,12 +71,10 @@ function App() {
           </div>
         </div>
         <div className="flexbox-column">
-
           <div className="main">
             <h5>Weather Map</h5>
           </div>
-        <div className="main">
-         
+          <div className="main">
             <h5>Temperature convertor</h5>
             <div className="covert">
               <div className="convertor">
@@ -92,11 +82,10 @@ function App() {
                   <TempConvertor
                     value={celcius}
                     handleChange={(event) =>
-                      setCelcius(parseInt(event.target.value))
+                      setCelcius(parseFloat(event.target.value))
                     }
                     placeholder="Celius"
-                    blurEvent={() => convertCelcius()}
-                   
+                    blurEvent={convertCelcius}
                   />
                 </div>
                 <div>
@@ -106,8 +95,7 @@ function App() {
                     handleChange={(event) =>
                       setFahrenheit(parseFloat(event.target.value))
                     }
-                    blurEvent={() => convertFahrenheit()}
-                    
+                    blurEvent={convertFahrenheit}
                   />
                 </div>
               </div>
